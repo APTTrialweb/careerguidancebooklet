@@ -51,6 +51,13 @@
 
 <body>
 
+<!-- Responsive Poster Banner (moved just above the card) -->
+<div style="width:100%; display:flex; justify-content:center; margin-bottom:25px;">
+  <img src="POSTER_LINK_HERE" alt="Program Poster" style="width:100%; max-width:900px; height:auto; border-radius:14px; box-shadow:0 0 25px #00ffcc;">
+</div>
+
+
+<div style='height:20px;'></div>
 <div id="wrap">
   <div class="card">
     <h2>Full Career Guidance Booklet</h2>
@@ -62,17 +69,17 @@
 
       <div class="input-group">
         <label>Full Name</label>
-        <input type="text" name="entry.XXXXXXX" required maxlength="20">
+        <input type="text" name="entry.593208422" required maxlength="20">
       </div>
 
       <div class="input-group">
         <label>Phone Number</label>
-        <input type="tel" name="entry.XXXXXXX" required maxlength="12" pattern="\\d{10,12}">
+        <input type="tel" name="entry.8545128" required maxlength="12" pattern="[0-9]{10,12}">
       </div>
 
       <div class="input-group">
         <label>City</label>
-        <input type="text" name="entry.XXXXXXX" required maxlength="15">
+        <input type="text" name="entry.1396374852" required maxlength="15">
       </div>
 
       <button type="submit" id="submitBtn">Get My Booklet</button>
@@ -89,11 +96,11 @@
 ------------------------------------------------------ */
 
 function decrypt(str){
-  return str.split("").map(c=>String.fromCharCode(c.charCodeAt(0)-3)).join("");
+  return str.split('').reverse().join('').replace('XYZ','');
 }
 
 // ENCRYPTED GOOGLE DRIVE LINK  (example)
-const encryptedLink = "kxwwv=grfr+jrrjoh+xfrp/xf?hadruw=dgrzqorddg&idg=12fubgwi..."; 
+const encryptedLink = "XYZgnirahs=psu?ZIrlgksje5xa_gG91rd0fGVrUMddq-4B1/sredlof/evird/moc.elgoog.evirD//:sptth"; 
 // You will give me your Drive link → I will give encrypted version
 
 /* -----------------------------------------------------
@@ -110,7 +117,7 @@ document.getElementById("careerForm").addEventListener("submit", async function(
   let fd = new FormData(this);
 
   try {
-      await fetch("https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/formResponse", {
+      await fetch("https://docs.google.com/forms/d/e/1FAIpQLSdma9DLIvoBgYZkm5C5Fu8xshQA0oeZuPRNvE8RyEGNA-s77w/formResponse", {
         method:"POST",
         mode:"no-cors",
         body:fd
@@ -139,5 +146,57 @@ document.getElementById("careerForm").addEventListener("submit", async function(
   btn.textContent = "Get My Booklet";
 });
 </script>
+  
+<!-- Countdown Neon Box -->
+<div id="countdownBox" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); padding:20px 30px; border-radius:14px; background:rgba(0,0,0,0.75); box-shadow:0 0 25px #00ffcc, inset 0 0 20px #00ffcc; border:2px solid #00ffcc; z-index:9999; text-align:center; font-size:1.3rem; font-weight:700; color:#00ffcc; text-shadow:0 0 12px #00ffcc;">
+  Link expires in <span id="cd_days">0</span>d : <span id="cd_hours">0</span>h : <span id="cd_minutes">0</span>m : <span id="cd_seconds">0</span>s
+</div>
+
+<script>
+// ------------------------------
+// Countdown: 4 Days From Now
+// ------------------------------
+// ------------------------------
+// Persistent Countdown (4 Days) - Does NOT reset on reload
+// ------------------------------
+
+// Check if expiry timestamp already exists
+let savedExpiry = localStorage.getItem('career_expiry');
+let expiryDate;
+
+if(savedExpiry){
+    // Use existing expiry
+    expiryDate = new Date(parseInt(savedExpiry));
+} else {
+    // Create new 4‑day expiry and save it
+    expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 4);
+    localStorage.setItem('career_expiry', expiryDate.getTime());
+}
+
+function updateCountdown(){
+    const now = Date.now();
+    const distance = expiryDate - now;
+
+    if(distance <= 0){
+        document.getElementById('countdownBox').innerHTML = "🔒 Link Expired";
+        return;
+    }
+
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('cd_days').textContent = days;
+    document.getElementById('cd_hours').textContent = hours;
+    document.getElementById('cd_minutes').textContent = minutes;
+    document.getElementById('cd_seconds').textContent = seconds;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
 </body>
 </html>
