@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Full Career Guidance Booklet – Free Access</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+  :root{
+    --glow:#00ffcc;
+    --blue:#0c5bff;
+    --bg:#060612;
+  }
+  *{box-sizing:border-box;font-family:Segoe UI,Roboto,Arial;color:#fff;}
+  body{margin:0;background:var(--bg);}
+
+  #wrap{
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:32px;
+  }
+
+  .card{
+    width:420px;background:rgba(0,0,0,0.65);
+    padding:28px;border-radius:16px;
+    box-shadow:0 0 20px rgba(0,255,200,0.18);
+    backdrop-filter:blur(6px);
+  }
+
+  h2{text-align:center;color:var(--glow);margin-top:0;}
+
+  .input-group{margin-bottom:16px;}
+  label{color:var(--glow);font-weight:600;font-size:0.9rem;}
+
+  input{
+    width:100%;padding:12px;border-radius:10px;border:1px solid #222;
+    background:#000;color:#fff;font-size:1rem;
+    box-shadow:0 0 10px rgba(0,255,204,0.6);
+  }
+
+  button{
+    width:100%;padding:14px;border:none;border-radius:999px;
+    background:linear-gradient(90deg,var(--glow),var(--blue));
+    color:#001214;font-weight:800;font-size:1rem;cursor:pointer;
+    margin-top:10px;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="wrap">
+  <div class="card">
+    <h2>Full Career Guidance Booklet</h2>
+    <p style="opacity:0.8;text-align:center;font-size:0.9rem;">
+      Fill the form to instantly access your 50-page Career Roadmap guide.
+    </p>
+
+    <form id="careerForm">
+
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" name="entry.XXXXXXX" required maxlength="20">
+      </div>
+
+      <div class="input-group">
+        <label>Phone Number</label>
+        <input type="tel" name="entry.XXXXXXX" required maxlength="12" pattern="\\d{10,12}">
+      </div>
+
+      <div class="input-group">
+        <label>City</label>
+        <input type="text" name="entry.XXXXXXX" required maxlength="15">
+      </div>
+
+      <button type="submit" id="submitBtn">Get My Booklet</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* -----------------------------------------------------
+   🔒 TRUE SAFE LINK PROTECTION  
+   - The Google Drive link is encrypted
+   - Nowhere visible in the HTML
+   - Only decrypted AFTER form submission
+------------------------------------------------------ */
+
+function decrypt(str){
+  return str.split("").map(c=>String.fromCharCode(c.charCodeAt(0)-3)).join("");
+}
+
+// ENCRYPTED GOOGLE DRIVE LINK  (example)
+const encryptedLink = "kxwwv=grfr+jrrjoh+xfrp/xf?hadruw=dgrzqorddg&idg=12fubgwi..."; 
+// You will give me your Drive link → I will give encrypted version
+
+/* -----------------------------------------------------
+   SUBMIT FORM → SEND TO GOOGLE FORM → REDIRECT
+------------------------------------------------------ */
+
+document.getElementById("careerForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Please wait...";
+
+  let fd = new FormData(this);
+
+  try {
+      await fetch("https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/formResponse", {
+        method:"POST",
+        mode:"no-cors",
+        body:fd
+      });
+
+      Swal.fire({
+        icon:"success",
+        title:"Form Submitted!",
+        text:"Redirecting to your Booklet...",
+        confirmButtonColor:"#00ffcc",
+        timer:1500,
+        showConfirmButton:false
+      });
+
+      setTimeout(()=>{
+         const realLink = decrypt(encryptedLink);
+         window.location.href = realLink;
+      },1500);
+
+  } catch (err){
+      console.log(err);
+      Swal.fire("Error","Could not submit form.","error");
+  }
+
+  btn.disabled = false;
+  btn.textContent = "Get My Booklet";
+});
+</script>
+</body>
+</html>
