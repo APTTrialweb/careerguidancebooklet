@@ -14,11 +14,11 @@
     --bg:#060612;
   }
   *{box-sizing:border-box;font-family:Segoe UI,Roboto,Arial;color:#fff;}
-  body{margin:0;background:var(--bg);}
+  body{margin:0;background:var(--bg); padding-bottom:140px;}
 
   #wrap{
     min-height:100vh;
-    display:flex;align-items:center;justify-content:center;
+    display:flex;justify-content:center;
     padding:32px;
   }
 
@@ -52,14 +52,19 @@
 <body>
 
 <!-- Responsive Poster Banner (moved just above the card) -->
-<div style="width:100%; display:flex; justify-content:center; margin-bottom:25px;">
-  <img src="https://github.com/APTTrialweb/careerguidancebooklet/blob/main/career-guidance-poster.jpg?raw=true" alt="Program Poster" style="width:100%; max-width:380px; height:auto; border-radius:14px; box-shadow:0 0 25px #00ffcc; object-fit:cover;">
-</div>
+
 
 
 <div style='height:5px;'></div>
 <div id="wrap">
   <div class="card">
+
+      <!-- Poster inside card, above heading -->
+      <div style="width:100%; display:flex; justify-content:center; margin-bottom:18px;">
+        <img src="https://github.com/APTTrialweb/careerguidancebooklet/blob/main/career-guidance-poster.jpg?raw=true"
+             alt="Program Poster"
+             style="width:100%; max-width:320px; height:auto; border-radius:12px; object-fit:cover; box-shadow:0 0 18px #00ffcc;">
+      </div>
     <h2>Full Career Guidance Booklet</h2>
     <p style="opacity:0.8;text-align:center;font-size:0.9rem;">
       Fill the form to instantly access your 50-page Career Roadmap guide.
