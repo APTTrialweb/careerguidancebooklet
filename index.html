@@ -158,7 +158,25 @@ document.getElementById("careerForm").addEventListener("submit", async function(
 
       let fd = new FormData(this);
 
-  try {
+  // ---- Duplicate Check Before Submission ----
+      const nameVal = fd.get('entry.593208422');
+      const phoneVal = fd.get('entry.8545128');
+
+      const duplicateCheck = await fetch('https://script.google.com/macros/s/AKfycbwg9UTd8GdG9_ch4mpiZ2ItaU2CwBYr88oxDpY6U_1siRPNSdjZ9eLpW_83hh7AyH2PTQ/exec', {
+        method: 'POST',
+        body: JSON.stringify({ name: nameVal, phone: phoneVal })
+      });
+
+      const dupResult = await duplicateCheck.json();
+
+      if (dupResult.status === 'duplicate') {
+        Swal.fire({ icon: 'warning', title: 'Already Submitted', text: 'You have already claimed this booklet.' });
+        btn.disabled = false;
+        btn.textContent = 'Get My Booklet';
+        return;
+      }
+
+      try {
       await fetch("https://docs.google.com/forms/d/e/1FAIpQLSdma9DLIvoBgYZkm5C5Fu8xshQA0oeZuPRNvE8RyEGNA-s77w/formResponse", {
         method:"POST",
         mode:"no-cors",
