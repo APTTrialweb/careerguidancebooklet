@@ -9,12 +9,19 @@
 
 <style>
   :root{
-    --glow:#00ffcc;
-    --blue:#0c5bff;
-    --bg:#060612;
-  }
+    --grad1:#7928CA;
+    --grad2:#FF0080;
+    --grad3:#FF8C00;
+    --textDark:#1a1a1a;
+    --white:#ffffff;
+}
   *{box-sizing:border-box;font-family:Segoe UI,Roboto,Arial;color:#fff;}
-  body{margin:0;background:var(--bg); padding-bottom:140px;}
+  body{
+    margin:0;
+    padding-bottom:160px;
+    background: linear-gradient(135deg, var(--grad1), var(--grad2), var(--grad3));
+    color: var(--white);
+}
 
   #wrap{
     min-height:100vh;
@@ -23,29 +30,41 @@
   }
 
   .card{
-    width:420px;background:rgba(0,0,0,0.65);
-    padding:28px;border-radius:16px;
-    box-shadow:0 0 20px rgba(0,255,200,0.18);
-    backdrop-filter:blur(6px);
-  }
+    width:420px;
+    background: rgba(255,255,255,0.15);
+    padding:28px;
+    border-radius:18px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.28);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.35);
+}
 
   h2{text-align:center;color:var(--glow);margin-top:0;}
 
   .input-group{margin-bottom:16px;}
-  label{color:var(--glow);font-weight:600;font-size:0.9rem;}
+  label{
+    color:#fff;
+    font-weight:600;
+    font-size:0.95rem;
+}
 
   input{
-    width:100%;padding:12px;border-radius:10px;border:1px solid #222;
-    background:#000;color:#fff;font-size:1rem;
-    box-shadow:0 0 10px rgba(0,255,204,0.6);
-  }
+    width:100%;padding:12px;border-radius:12px;
+    border:1px solid rgba(255,255,255,0.4);
+    background:rgba(255,255,255,0.25);
+    color:#fff;font-size:1rem;
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 8px rgba(255,255,255,0.25);
+}
 
   button{
     width:100%;padding:14px;border:none;border-radius:999px;
-    background:linear-gradient(90deg,var(--glow),var(--blue));
-    color:#001214;font-weight:800;font-size:1rem;cursor:pointer;
+    background:linear-gradient(90deg, var(--grad1), var(--grad2), var(--grad3));
+    color:#fff;
+    font-weight:800;font-size:1rem;cursor:pointer;
     margin-top:10px;
-  }
+    box-shadow:0 4px 18px rgba(0,0,0,0.3);
+}
 </style>
 </head>
 
@@ -67,7 +86,7 @@
       </div>
     <h2>Full Career Guidance Booklet</h2>
     <p style="opacity:0.8;text-align:center;font-size:0.9rem;">
-      Fill the form to instantly access your 20-page Career Roadmap guide.
+      Fill the form to instantly access your 50-page Career Roadmap guide.
     </p>
 
     <form id="careerForm">
