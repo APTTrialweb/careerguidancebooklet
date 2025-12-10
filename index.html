@@ -125,7 +125,14 @@ document.getElementById("careerForm").addEventListener("submit", async function(
   btn.disabled = true;
   btn.textContent = "Please wait...";
 
-  let fd = new FormData(this);
+  Swal.fire({
+        title: 'Processing your request...',
+        html: 'Please wait a moment',
+        allowOutsideClick: false,
+        didOpen: () => { Swal.showLoading(); }
+      });
+
+      let fd = new FormData(this);
 
   try {
       await fetch("https://docs.google.com/forms/d/e/1FAIpQLSdma9DLIvoBgYZkm5C5Fu8xshQA0oeZuPRNvE8RyEGNA-s77w/formResponse", {
