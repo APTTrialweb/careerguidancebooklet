@@ -106,8 +106,6 @@
         <input type="text" name="entry.1396374852" required maxlength="15">
       </div>
 
-      <input type="hidden" id="lead_source" name="entry.607064936">
-
       <div class="input-group">
         <label>Background</label>
         <select name="entry.1047483961" required style="width:100%;padding:12px;border-radius:10px;border:1px solid #222;background:#000;color:#fff;font-size:1rem;box-shadow:0 0 10px rgba(0,255,204,0.6);">
@@ -159,25 +157,6 @@ document.getElementById("careerForm").addEventListener("submit", async function(
       });
 
       let fd = new FormData(this);
-
-      <script>
-// ------------------------------
-// Get ?source=insta from URL
-// ------------------------------
-function getParam(name) {
-  const url = new URL(window.location.href);
-  return url.searchParams.get(name);
-}
-
-let leadSource = getParam("source") || "organic";
-
-// Put into hidden field
-document.addElementListener || setTimeout(() => {
-  const ls = document.getElementById("lead_source");
-  if(ls) ls.value = leadSource;
-}, 500);
-</script>
-
 
   // ---- Duplicate Check Before Submission ----
       const nameVal = fd.get('entry.593208422');
