@@ -18,7 +18,6 @@
   *{box-sizing:border-box;font-family:Segoe UI,Roboto,Arial;color:#fff;}
   body{
     margin:0;
-    padding-bottom:160px;
     background: linear-gradient(135deg, var(--grad1), var(--grad2), var(--grad3));
     color: var(--white);
 }
@@ -39,11 +38,10 @@
     border:1px solid rgba(255,255,255,0.35);
 }
 
-  h2{text-align:center;color:var(--glow);margin-top:0;}
+  h2{text-align:center;margin-top:0;}
 
   .input-group{margin-bottom:16px;}
   label{
-    color:#fff;
     font-weight:600;
     font-size:0.95rem;
 }
@@ -52,15 +50,12 @@
     width:100%;padding:12px;border-radius:12px;
     border:1px solid rgba(255,255,255,0.4);
     background:rgba(255,255,255,0.25);
-    color:#fff;font-size:1rem;
-    backdrop-filter:blur(6px);
-    box-shadow:0 0 8px rgba(255,255,255,0.25);
+    font-size:1rem;
 }
 
   button{
     width:100%;padding:14px;border:none;border-radius:999px;
     background:linear-gradient(90deg, var(--grad1), var(--grad2), var(--grad3));
-    color:#fff;
     font-weight:800;font-size:1rem;cursor:pointer;
     margin-top:10px;
     box-shadow:0 4px 18px rgba(0,0,0,0.3);
@@ -70,22 +65,17 @@
 
 <body>
 
-<!-- Responsive Poster Banner (moved just above the card) -->
-
-
-
-<div style='height:5px;'></div>
 <div id="wrap">
   <div class="card">
 
-      <!-- Poster inside card, above heading -->
       <div style="width:100%; display:flex; justify-content:center; margin-bottom:18px;">
         <img src="https://github.com/APTTrialweb/careerguidancebooklet/blob/main/career-guidance-poster.jpg?raw=true"
              alt="Program Poster"
-             style="width:100%; max-width:320px; height:auto; border-radius:12px; object-fit:cover; box-shadow:0 0 18px #00ffcc;">
+             style="width:100%; max-width:320px; border-radius:12px;">
       </div>
+
     <h2>Full Commerce Career Guidance Booklet</h2>
-    <p style="opacity:0.8;text-align:center;font-size:0.9rem;">
+    <p style="opacity:0.9;text-align:center;font-size:0.9rem;">
       Fill the form to instantly access your 20-page Career Roadmap guide.
     </p>
 
@@ -108,12 +98,12 @@
 
       <div class="input-group">
         <label>Background</label>
-        <select name="entry.1047483961" required style="width:100%;padding:12px;border-radius:10px;border:1px solid #222;background:#000;color:#fff;font-size:1rem;box-shadow:0 0 10px rgba(0,255,204,0.6);">
+        <select name="entry.1047483961" required style="width:100%;padding:12px;border-radius:10px;border:1px solid #222;background:#000;color:#fff;">
           <option value="">-- Select --</option>
           <option value="Class 10">Class 10</option>
           <option value="Class 11">Class 11</option>
           <option value="Class 12">Class 12</option>
-          <option value=\"Parents\">Parents</option>
+          <option value="Parents">Parents</option>
         </select>
       </div>
 
@@ -123,25 +113,6 @@
 </div>
 
 <script>
-/* -----------------------------------------------------
-   🔒 TRUE SAFE LINK PROTECTION  
-   - The Google Drive link is encrypted
-   - Nowhere visible in the HTML
-   - Only decrypted AFTER form submission
------------------------------------------------------- */
-
-function decrypt(str){
-  return str.split('').reverse().join('').replace('XYZ','');
-}
-
-// ENCRYPTED GOOGLE DRIVE LINK  (example)
-const encryptedLink = "XYZgnirahs=psu?ZIrlgksje5xa_gG91rd0fGVrUMddq-4B1/sredlof/evird/moc.elgoog.evirD//:sptth"; 
-// You will give me your Drive link → I will give encrypted version
-
-/* -----------------------------------------------------
-   SUBMIT FORM → SEND TO GOOGLE FORM → REDIRECT
------------------------------------------------------- */
-
 document.getElementById("careerForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
@@ -150,112 +121,62 @@ document.getElementById("careerForm").addEventListener("submit", async function(
   btn.textContent = "Please wait...";
 
   Swal.fire({
-        title: 'Processing your request...',
+        title: 'Processing...',
         html: 'Please wait a moment',
         allowOutsideClick: false,
         didOpen: () => { Swal.showLoading(); }
-      });
+  });
 
-      let fd = new FormData(this);
+  let fd = new FormData(this);
 
-  // ---- Duplicate Check Before Submission ----
-      const nameVal = fd.get('entry.593208422');
-      const phoneVal = fd.get('entry.8545128');
+  // Duplicate check
+  const nameVal = fd.get('entry.593208422');
+  const phoneVal = fd.get('entry.8545128');
 
-      const duplicateCheck = await fetch('https://script.google.com/macros/s/AKfycbwg9UTd8GdG9_ch4mpiZ2ItaU2CwBYr88oxDpY6U_1siRPNSdjZ9eLpW_83hh7AyH2PTQ/exec', {
-        method: 'POST',
-        body: JSON.stringify({ name: nameVal, phone: phoneVal })
-      });
+  const duplicateCheck = await fetch(
+    "https://script.google.com/macros/s/AKfycbwg9UTd8GdG9_ch4mpiZ2ItaU2CwBYr88oxDpY6U_1siRPNSdjZ9eLpW_83hh7AyH2PTQ/exec",
+    {
+      method: 'POST',
+      body: JSON.stringify({ name: nameVal, phone: phoneVal })
+    }
+  );
 
-      const dupResult = await duplicateCheck.json();
+  const dupResult = await duplicateCheck.json();
 
-      if (dupResult.status === 'duplicate') {
-        Swal.fire({ icon: 'warning', title: 'Already Submitted', text: 'You have already claimed this booklet.' });
-        btn.disabled = false;
-        btn.textContent = 'Get My Booklet';
-        return;
-      }
+  if (dupResult.status === 'duplicate') {
+    Swal.fire({ icon: 'warning', title: 'Already Submitted', text: 'You have already claimed this booklet.' });
+    btn.disabled = false;
+    btn.textContent = 'Get My Booklet';
+    return;
+  }
 
-      try {
-      await fetch("https://docs.google.com/forms/d/e/1FAIpQLSdma9DLIvoBgYZkm5C5Fu8xshQA0oeZuPRNvE8RyEGNA-s77w/formResponse", {
-        method:"POST",
-        mode:"no-cors",
-        body:fd
-      });
+  try {
+    await fetch("https://docs.google.com/forms/d/e/1FAIpQLSdma9DLIvoBgYZkm5C5Fu8xshQA0oeZuPRNvE8RyEGNA-s77w/formResponse", {
+      method:"POST",
+      mode:"no-cors",
+      body:fd
+    });
 
-      Swal.fire({
-        icon:"success",
-        title:"Form Submitted!",
-        text:"Redirecting to your Booklet...",
-        confirmButtonColor:"#00ffcc",
-        timer:1500,
-        showConfirmButton:false
-      });
+    Swal.fire({
+      icon:"success",
+      title:"Form Submitted!",
+      text:"Redirecting to your Booklet...",
+      timer:1500,
+      showConfirmButton:false
+    });
 
-      setTimeout(()=>{
-         const realLink = decrypt(encryptedLink);
-         window.location.href = realLink;
-      },1500);
+    setTimeout(()=>{
+      window.location.href = "https://drive.google.com/file/d/1ByawOjtfDpGKz4fPOAHLtwuVVVZNN7KF/view?usp=sharing";
+    },1500);
 
   } catch (err){
-      console.log(err);
-      Swal.fire("Error","Could not submit form.","error");
+    console.log(err);
+    Swal.fire("Error","Could not submit form.","error");
   }
 
   btn.disabled = false;
   btn.textContent = "Get My Booklet";
 });
-</script>
-  
-<!-- Countdown Neon Box -->
-<div id="countdownBox" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); padding:20px 30px; border-radius:14px; background:rgba(0,0,0,0.75); box-shadow:0 0 25px #00ffcc, inset 0 0 20px #00ffcc; border:2px solid #00ffcc; z-index:9999; text-align:center; font-size:1.3rem; font-weight:700; color:#00ffcc; text-shadow:0 0 12px #00ffcc;">
-  Link expires in <span id="cd_days">0</span>d : <span id="cd_hours">0</span>h : <span id="cd_minutes">0</span>m : <span id="cd_seconds">0</span>s
-</div>
-
-<script>
-// ------------------------------
-// Countdown: 4 Days From Now
-// ------------------------------
-// ------------------------------
-// Persistent Countdown (4 Days) - Does NOT reset on reload
-// ------------------------------
-
-// Check if expiry timestamp already exists
-let savedExpiry = localStorage.getItem('career_expiry');
-let expiryDate;
-
-if(savedExpiry){
-    // Use existing expiry
-    expiryDate = new Date(parseInt(savedExpiry));
-} else {
-    // Create new 4‑day expiry and save it
-    expiryDate = new Date();
-    expiryDate.setDate(expiryDate.getDate() + 4);
-    localStorage.setItem('career_expiry', expiryDate.getTime());
-}
-
-function updateCountdown(){
-    const now = Date.now();
-    const distance = expiryDate - now;
-
-    if(distance <= 0){
-        document.getElementById('countdownBox').innerHTML = "🔒 Link Expired";
-        return;
-    }
-
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById('cd_days').textContent = days;
-    document.getElementById('cd_hours').textContent = hours;
-    document.getElementById('cd_minutes').textContent = minutes;
-    document.getElementById('cd_seconds').textContent = seconds;
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
 </script>
 
 </body>
